@@ -8,7 +8,7 @@ char* sh_read_line();
 int main(){
   printf("-->");
   char* line = sh_read_line();
-  printf("%s", line);
+  printf("%s\n", line);
   return 0;
 }
 
@@ -21,13 +21,14 @@ char* sh_read_line(){
   while (1){
     c = getchar();
     if ((c == EOF) || (c == '\n')){
-      line[curr+1] = '\0';
+      line[curr] = '\0';
       return line;
     }
 
     if (curr + 1 >= buffer){
       buffer *= 2;
-      realloc(line, buffer);
+      line = realloc(line, buffer);
     }
+    line[curr++] = c;
   }
 }
